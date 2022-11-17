@@ -13,7 +13,7 @@ import {
 const CONFIG_FILE_NAME = "component-config.json";
 
 program
-  .version("0.0.1")
+  .version("0.0.2")
   .description("Create react components easily")
   .allowUnknownOption()
   .parse(process.argv);

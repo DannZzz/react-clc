@@ -1,12 +1,17 @@
 {
   "name": "react-clc",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.2",
+  "description": "A simple commands for generating React Components",
   "main": "dist/index.js",
   "scripts": {
     "start": "ts-node src/index.ts"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "components",
+    "react-cli",
+    "cli"
+  ],
   "author": "",
   "license": "ISC",
   "bin": {
