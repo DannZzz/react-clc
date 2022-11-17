@@ -20,5 +20,9 @@
   },
   "devDependencies": {
     "@types/node": "^18.11.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DannZzz/react-clc.git"
   }
 }
