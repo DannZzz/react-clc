@@ -2,17 +2,17 @@
 
 ## Installation
 
-```shall
+```shell
 npm install -g react-clc
 ```
 
-```shall
+```shell
 yarn global add react-clc
 ```
 
 ## Setup configuration file for project
 
-```shall
+```shell
 rc init
 ```
 
@@ -20,19 +20,29 @@ P.S. run `rc --help` for more information about options
 
 ## Examples
 
+## $ component | c
+
 This one creates **Home** component in source directory, with its style
 
-```shall
+```shell
 rc component home
 ```
 
 This one creates **Home** directory, also component and style files within
 
-```shall
+```shell
 rc c home/home
 ```
 
-P.S. **c** and **component** are the same commands
+## $ directory-component | dc
+
+**directory-component** command creates directory with specified name, then component and style within
+
+This one will create **Home** directory in source directory, component and style within
+
+```shell
+rc directory-component home
+```
 
 ## component-config.json file
 

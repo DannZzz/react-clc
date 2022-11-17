@@ -1,6 +1,6 @@
 {
   "name": "react-clc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple commands for generating React Components",
   "main": "dist/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "react-cli",
     "cli"
   ],
-  "author": "",
+  "author": "Dann",
   "license": "ISC",
   "bin": {
     "rc": "./dist/index.js",

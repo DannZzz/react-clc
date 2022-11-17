@@ -69,6 +69,70 @@ program
     let paths = str.split("/") as string[];
     const fileName = toPascal(paths.pop() as any);
     const settings = new DefaultConfig();
+
+    try {
+      const json = fs.readFileSync(path.join(process.cwd(), CONFIG_FILE_NAME));
+      if (json) {
+        const newSettings = JSON.parse(json as any);
+        for (let k in newSettings) {
+          const exists = (defaultsArr as any)[k];
+          if (exists) {
+            if (exists.length && exists.includes(newSettings[k])) {
+              settings.set(k, newSettings[k]);
+            } else if (!exists.length) {
+              settings.set(k, newSettings[k]);
+            }
+          }
+        }
+      }
+    } catch {}
+    writeFile(
+      path.join(process.cwd(), settings.sourceDir, ...paths),
+      fileName + `.${settings.fileExtension}`,
+      ComponentTemplate[settings.component](fileName, settings.style),
+      (err) => {
+        if (err) return console.error(err);
+        console.log(
+          chalk.italic.green(
+            `Created ${path.join(
+              settings.sourceDir,
+              paths.join("/"),
+              fileName + "." + settings.fileExtension
+            )}`
+          )
+        );
+      }
+    );
+    if (settings.style) {
+      writeFile(
+        path.join(process.cwd(), settings.sourceDir, ...paths),
+        fileName + `.${settings.style}`,
+        "",
+        (err) => {
+          if (err) return console.error(err);
+          console.log(
+            chalk.italic.green(
+              `Created ${path.join(
+                settings.sourceDir,
+                paths.join("/"),
+                fileName + "." + settings.style
+              )}`
+            )
+          );
+        }
+      );
+    }
+  });
+
+program
+  .command("directory-component")
+  .alias("dc")
+  .description("create component within its directory")
+  .argument("<path>", "path with directory name (ex. components/home)")
+  .action(async (str: string, options) => {
+    let paths = str.split("/") as string[];
+    const fileName = toPascal(paths.at(-1) as any);
+    const settings = new DefaultConfig();
     if (paths.length) {
       const lastDir = paths.pop();
       paths.push(toPascal(lastDir as any));

@@ -56,7 +56,7 @@ var fs_1 = __importDefault(require("fs"));
 var default_config_1 = require("./default-config");
 var CONFIG_FILE_NAME = "component-config.json";
 commander_1.program
-    .version("0.0.1")
+    .version("1.0.1")
     .description("Create react components easily")
     .allowUnknownOption()
     .parse(process.argv);
@@ -93,10 +93,54 @@ commander_1.program
     .description("create component")
     .argument("<path>", "path with file name (ex. components/home)")
     .action(function (str, options) { return __awaiter(void 0, void 0, void 0, function () {
-    var paths, fileName, settings, lastDir, json, newSettings, k, exists;
+    var paths, fileName, settings, json, newSettings, k, exists;
     return __generator(this, function (_a) {
         paths = str.split("/");
         fileName = (0, default_config_1.toPascal)(paths.pop());
+        settings = new default_config_1.DefaultConfig();
+        try {
+            json = fs_1.default.readFileSync(path_1.default.join(process.cwd(), CONFIG_FILE_NAME));
+            if (json) {
+                newSettings = JSON.parse(json);
+                for (k in newSettings) {
+                    exists = default_config_1.defaultsArr[k];
+                    if (exists) {
+                        if (exists.length && exists.includes(newSettings[k])) {
+                            settings.set(k, newSettings[k]);
+                        }
+                        else if (!exists.length) {
+                            settings.set(k, newSettings[k]);
+                        }
+                    }
+                }
+            }
+        }
+        catch (_b) { }
+        writeFile(path_1.default.join.apply(path_1.default, __spreadArray([process.cwd(), settings.sourceDir], paths, false)), fileName + ".".concat(settings.fileExtension), default_config_1.ComponentTemplate[settings.component](fileName, settings.style), function (err) {
+            if (err)
+                return console.error(err);
+            console.log(chalk_1.default.italic.green("Created ".concat(path_1.default.join(settings.sourceDir, paths.join("/"), fileName + "." + settings.fileExtension))));
+        });
+        if (settings.style) {
+            writeFile(path_1.default.join.apply(path_1.default, __spreadArray([process.cwd(), settings.sourceDir], paths, false)), fileName + ".".concat(settings.style), "", function (err) {
+                if (err)
+                    return console.error(err);
+                console.log(chalk_1.default.italic.green("Created ".concat(path_1.default.join(settings.sourceDir, paths.join("/"), fileName + "." + settings.style))));
+            });
+        }
+        return [2 /*return*/];
+    });
+}); });
+commander_1.program
+    .command("component-directory")
+    .alias("cd")
+    .description("create component within its folder")
+    .argument("<path>", "path with directory name (ex. components/home)")
+    .action(function (str, options) { return __awaiter(void 0, void 0, void 0, function () {
+    var paths, fileName, settings, lastDir, json, newSettings, k, exists;
+    return __generator(this, function (_a) {
+        paths = str.split("/");
+        fileName = (0, default_config_1.toPascal)(paths.at(-1));
         settings = new default_config_1.DefaultConfig();
         if (paths.length) {
             lastDir = paths.pop();
