@@ -34,14 +34,22 @@ This one creates **Home** directory, also component and style files within
 rc c home/home
 ```
 
-## $ directory-component | dc
+## $ native | m
 
-**directory-component** command creates directory with specified name, then component and style within
+**native** command creates React Native component with or without style
 
-This one will create **Home** directory in source directory, component and style within
+This one creates **Home** component in source directory, with its style
 
 ```shell
-rc directory-component home
+rc native home
+```
+
+# You can use **-dc** option with **native** and **component** commands for creating components in own directories!
+
+## Example
+
+```shell
+rc native home -dc
 ```
 
 ## component-config.json file
@@ -51,7 +59,9 @@ rc directory-component home
   "style": "css",
   "component": "function",
   "fileExtension": "jsx",
-  "sourceDir": "src"
+  "sourceDir": "src",
+  "directoryComponent": "no",
+  "nativeStyle": "file"
 }
 ```
 
@@ -65,7 +75,7 @@ rc directory-component home
     - "scss"
     - "less"
     - "sass"
-    - false (for no style file)
+    - "none" (for no style file)
 
 </details>
 
@@ -90,9 +100,31 @@ rc directory-component home
 
 <details>
     <summary>sourceDir</summary>
-    Folder Path (string)
+    Directory Path (string)
 
     - src
     - src/components
+
+</details>
+
+<details>
+    <summary>directoryComponent</summary>
+    Wheter the components must have their own directories or not
+
+    Types
+
+    - "yes"
+    - "no"
+
+</details>
+
+<details>
+    <summary>nativeStyle</summary>
+
+    Types
+
+    - "file"
+    - "in" (styles at the end of the component file)
+    - "none"
 
 </details>
