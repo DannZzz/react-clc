@@ -1,6 +1,6 @@
 {
   "name": "react-clc",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple commands for generating React Components",
   "main": "dist/index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "commander": "^9.4.1",
+    "fs": "^0.0.1-security",
     "path": "^0.12.7"
   },
   "devDependencies": {
