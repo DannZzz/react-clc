@@ -28,7 +28,9 @@ export const ComponentTemplate = {
 
 export const NativeComponentTemplate = {
   function: (fileName: string, nativeStyle: _<"nativeStyle">) =>
-    `import { View, Text } from 'react-native';
+    `import { View, Text${
+      nativeStyle === "in" ? ", StyleSheet" : ""
+    } } from 'react-native';
 import React from 'react';${
       nativeStyle === "file"
         ? `\nimport styles from "./${fileName}.style";`

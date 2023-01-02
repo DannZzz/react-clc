@@ -23,6 +23,9 @@ export default function commandInit(program: Command) {
     .action((str, options) => {
       const settings = new DefaultConfig();
       const newSettings = options.opts();
+      if ("type" in newSettings) {
+        newSettings.fileExtension = newSettings.type;
+      }
 
       for (let k in newSettings) {
         settings.set(k, newSettings[k]);
